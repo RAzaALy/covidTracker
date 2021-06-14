@@ -1,15 +1,32 @@
-.app{
-    width: 100%;
-    overflow-x: hidden;
+.app {
+  width: 100vw;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-evenly;
+  overflow-x: hidden;
 }
-.app__header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-
-
+.app__left{
+  flex: 0.8;
 }
- .app__dropdown{
+.app__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
 
- }
+.MuiListItem-root {
+  font-size: 1.3rem !important;
+}
+.MuiSelect-root {
+  font-size: 1.3rem !important;
+}
+.app__stats {
+  display: flex;
+  justify-content: space-between;
+}
+@media (max-width: 768px) {
+  .app{
+    flex-direction: column;
+  }
+}
