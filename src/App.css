@@ -1,1 +1,15 @@
- 
+.app{
+    width: 100%;
+    overflow-x: hidden;
+}
+.app__header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+
+
+}
+ .app__dropdown{
+
+ }
