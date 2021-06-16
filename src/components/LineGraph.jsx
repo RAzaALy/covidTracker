@@ -52,13 +52,13 @@ const config = {
     },
   },
 };
-const LineGraph = ({ casesType = "cases" }) => {
+const LineGraph = ({ casesType }) => {
   const [data, setData] = useState({});
 
-  const buildChartData = (data, casesType = "cases") => {
+  const buildChartData = (data, casesType) => {
     const chartData = [];
     let lastDataPoint;
-    for (let date in data.cases) {
+    for (let date in data[casesType]) {
       if (lastDataPoint) {
         const newDataPoint = {
           x: date,
@@ -79,7 +79,7 @@ const LineGraph = ({ casesType = "cases" }) => {
         .then((response) => response.json())
         .then((data) => {
           // console.log(data);
-          const chartData = buildChartData(data);
+          const chartData = buildChartData(data,casesType);
           setData(chartData);
         });
     };

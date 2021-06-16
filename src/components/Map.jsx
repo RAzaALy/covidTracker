@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import MapGL, { Popup } from "react-map-gl";
-import Numeral from "numeral";
+import numeral from "numeral";
 import { Marker, NavigationControl } from "react-map-gl";
 
 import "./Map.css";
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoicmF6YWx5IiwiYSI6ImNrcHh2MGxtajA1dm4ycXQxbjgzbjdzbTEifQ.HzVi2toa42YCgvli214Tfw"; // Set your mapbox token here
-const Map = ({ casesType, latitude, longitude, zoom, countries,country}) => {
+const Map = ({ casesType, latitude, longitude, zoom, countries, country }) => {
   // console.log(countries);
   // console.log(latitude, longitude);
   const [showPopup, togglePopup] = useState(true);
@@ -51,7 +51,7 @@ const Map = ({ casesType, latitude, longitude, zoom, countries,country}) => {
   };
 
   //show circle on the 🗺️
-  const ShowInfo = (data, casesType = "cases") =>  
+  const ShowInfo = (data, casesType = "cases") =>
     data.map((country, index) => (
       <Marker
         key={index}
@@ -61,13 +61,13 @@ const Map = ({ casesType, latitude, longitude, zoom, countries,country}) => {
         <div
           className="map-marker"
           style={{
-            backgroundColor: `${casesTypeColors[casesType].rgba}`,
-            height: `${(country.cases / country.casesPerOneMillion) % 100}px`,
-            width: `${(country.cases / country.casesPerOneMillion) % 100}px`,
+            backgroundColor: `${casesTypeColors[casesType[0]].rgba}`,
+            height: `${country[casesType] % 100}px`,
+            width: `${country[casesType] % 100}px`,
           }}
         />
       </Marker>
-    ))
+    ));
   return (
     <div className="map">
       <MapGL
@@ -79,7 +79,7 @@ const Map = ({ casesType, latitude, longitude, zoom, countries,country}) => {
         onViewportChange={(nextViewport) => setViewport(nextViewport)}
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
-        {ShowInfo(countries)}
+        {ShowInfo(countries, casesType)}
         <div className="map-nav">
           <NavigationControl onViewportChange={setViewport} />
         </div>
@@ -87,25 +87,20 @@ const Map = ({ casesType, latitude, longitude, zoom, countries,country}) => {
           <Popup
             latitude={latitude}
             longitude={longitude}
-            closeButton={true}
-            closeOnClick={false}
+            closeButton={false}
+            closeOnClick={true}
             tipSize={12}
             onClose={() => togglePopup(false)}
-            anchor="top"
+            anchor="bottom"
           >
-            <div>
-            <img src={country.flag} alt="flag" style={{width: "4rem",height:"2rem"}} />
-            <ul style={{listStyle: "none"}}>
-              <li>
-              Cases: {country.cases}
-              </li>
-              <li>
-              Recovered: {country.recovered}
-              </li>
-              <li>
-              Deaths: {country.deaths}
-              </li>
-            </ul>
+            <div className="infoContainer">
+              <img className="flag" src={country.flag} alt="flag" />
+              <ul style={{ listStyle: "none" }}>
+                <li className="name">{country.name}</li>
+                <li>Cases: {numeral(country.cases).format("0,0")}</li>
+                <li>Recovered: {numeral(country.recovered).format("0,0")}</li>
+                <li>Deaths: {numeral(country.deaths).format("0,0")}</li>
+              </ul>
             </div>
           </Popup>
         )}
