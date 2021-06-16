@@ -22,6 +22,7 @@ const App = () => {
   const [longitude, setLongitude] = useState(69.3451);
   const [mapZoom, setMapZoom] = useState(5);
   const [mapCountries, setMapCountries] = useState([]);
+  const [popupInfo, setPopupInfo] = useState({cases:944065,recovered: 882332,deaths:21828,flag:"https://disease.sh/assets/img/flags/pk.png"})
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
       .then((response) => response.json())
@@ -33,7 +34,7 @@ const App = () => {
     const getCountries = async () => {
       const response = await fetch("https://disease.sh/v3/covid-19/countries");
       const data = await response.json();
-      // console.log(data);
+      console.log(data);
       const countries = data.map((country) => ({
         name: country.country,
         value: country.countryInfo.iso3,
@@ -59,6 +60,7 @@ const App = () => {
     setLongitude(data.countryInfo.long);
     setLatitude(data.countryInfo.lat);
     setMapZoom(6);
+    setPopupInfo({cases: data.cases,recovered: data.recovered,deaths: data.deaths,flag: data.countryInfo.flag})
   };
   // console.log(countryInfo);
   return (
@@ -105,7 +107,7 @@ const App = () => {
         </div>
       </div>
       {/* map */}
-      <Map casesType='cases' countries={mapCountries} latitude={latitude} longitude={longitude} zoom={mapZoom} />
+      <Map casesType='cases' countries={mapCountries} latitude={latitude} longitude={longitude} zoom={mapZoom} country={popupInfo}/>
       {/* right panel */}
       <Card className="app__right">
         <CardContent>

@@ -43,3 +43,25 @@
     margin-top: 2rem;
   }
 } */
+.map-marker {
+  border-radius: 50%;
+  cursor: pointer;
+}
+.mapboxgl-popup.mapboxgl-popup-anchor-top:hover {
+  width: 15rem;
+  height: 15rem;
+  opacity: 1;
+}
+.mapboxgl-popup-content {
+  background-color:rgba(255, 255, 255, 0.5);
+}
+
+.mapboxgl-popup-tip {
+  color:rgba(255, 255, 255, 0.5) !important;
+}
+.mapboxgl-popup-close-button{
+  font-size: 2.3rem !important;
+  width: 2rem;
+  height: 2rem;
+}
+
