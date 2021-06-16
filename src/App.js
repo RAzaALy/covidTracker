@@ -11,12 +11,17 @@ import Map from "./components/Map";
 import Table from "./components/Table";
 import LineGraph from "./components/LineGraph";
 import { sortData } from "./util";
+import "mapbox-gl/dist/mapbox-gl.css";
 import "./App.css";
 const App = () => {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("Worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
+  const [latitude, setLatitude] = useState(30.3753);
+  const [longitude, setLongitude] = useState(69.3451);
+  const [mapZoom, setMapZoom] = useState(5);
+  const [mapCountries, setMapCountries] = useState([]);
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
       .then((response) => response.json())
@@ -36,6 +41,7 @@ const App = () => {
       const sortedData = sortData(data);
       setTableData(sortedData);
       setCountries(countries);
+      setMapCountries(data);
     };
     getCountries();
   }, []);
@@ -50,6 +56,9 @@ const App = () => {
     const response = await fetch(url);
     const data = await response.json();
     setCountryInfo(data);
+    setLongitude(data.countryInfo.long);
+    setLatitude(data.countryInfo.lat);
+    setMapZoom(6);
   };
   // console.log(countryInfo);
   return (
@@ -94,9 +103,9 @@ const App = () => {
             cases={countryInfo.todayDeaths}
           ></InfoBox>
         </div>
-        {/* map */}
-        <Map />
       </div>
+      {/* map */}
+      <Map casesType='cases' countries={mapCountries} latitude={latitude} longitude={longitude} zoom={mapZoom} />
       {/* right panel */}
       <Card className="app__right">
         <CardContent>
@@ -104,8 +113,8 @@ const App = () => {
           <h3>Live Cases by Country</h3>
           <Table countries={tableData}></Table>
           {/* graph */}
+          <h2>Worldwide COVID-19 Cases</h2>
           <LineGraph></LineGraph>
-          <h2>Worldwide New Cases</h2>
         </CardContent>
       </Card>
     </div>

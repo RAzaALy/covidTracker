@@ -4,6 +4,7 @@
   height: 30rem;
   color: #6a5d5d;
   user-select: none;
+  padding: 1rem;
 }
 .table tr {
   display: flex;

@@ -1,25 +1,25 @@
 .app {
-  width: 100vw;
-  padding: 2rem;
+  width: 100%;
+  padding: 2rem 1rem;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
   overflow-x: hidden;
 }
-.app__left{
-  flex: 0.6;
+/* .app__left {
+  flex: 0.9;
 }
 .app__right{
-  flex: 0.3;
-}
+ width: fit-content;
+} */
 .app__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
 }
-.app__right canvas{
-  height: 26rem !important;
+.app__right canvas {
+  height: 32rem !important;
   width: 100% !important;
 }
 
@@ -33,11 +33,13 @@
   display: flex;
   justify-content: space-between;
 }
-@media (max-width: 900px) {
-  .app{
+/* @media (max-width: 900px) {
+  .app {
     flex-direction: column;
   }
-  .app__right{
+  .app__right {
+    width: 100%;
+    height: fit-content;
     margin-top: 2rem;
   }
-}
+} */
