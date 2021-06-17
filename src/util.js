@@ -1,4 +1,3 @@
-import React from "react";
 import numeral from "numeral";
 export const sortData = (data) => {
   const sortedData = [...data];
@@ -14,4 +13,4 @@ export const sortData = (data) => {
   // return sortedData;
 };
 export const prettyStat = (stat) =>
-  stat ? `+${numeral(stat).format("0.0a")}` : "";
+  stat ? `+${numeral(stat).format("0.0a")}` : "0";

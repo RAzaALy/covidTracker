@@ -15,7 +15,7 @@ const Table = ({ countries }) => {
         </thead>
         <tbody>
           {countries.map(({ country, cases, deaths, recovered }, index) => (
-            <tr>
+            <tr key={index}>
               <td data-label="country">{country}</td>
               <td data-label="cases">
                 {" "}

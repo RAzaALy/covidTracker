@@ -42,7 +42,7 @@ const App = () => {
     const getCountries = async () => {
       const response = await fetch("https://disease.sh/v3/covid-19/countries");
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       const countries = data.map((country) => ({
         name: country.country,
         value: country.countryInfo.iso3,
