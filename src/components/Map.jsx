@@ -34,19 +34,16 @@ const Map = ({ casesType, latitude, longitude, zoom, countries, country }) => {
   }, [latitude, longitude, zoom]);
   const casesTypeColors = {
     cases: {
-      hex: "#CC1034",
-      multiplier: 800,
       rgba: "rgba(5, 155, 247, 0.5)",
+      color: "rgba(5, 155, 247)",
     },
     recovered: {
-      hex: "#7dd71d",
-      multiplier: 1200,
       rgba: "rgba(53,211,156,0.5)",
+      color: "rgba(53,211,156)",
     },
     deaths: {
-      hex: "#fb4443",
-      multiplier: 2000,
       rgba: "rgba(233,30,99,0.5)",
+      color: "rgba(233,30,99)",
     },
   };
 
@@ -61,7 +58,8 @@ const Map = ({ casesType, latitude, longitude, zoom, countries, country }) => {
         <div
           className="map-marker"
           style={{
-            backgroundColor: `${casesTypeColors[casesType[0]].rgba}`,
+            backgroundColor: `${casesTypeColors[casesType].rgba}`,
+            border: `2px solid ${casesTypeColors[casesType].color}`,
             height: `${country[casesType] % 100}px`,
             width: `${country[casesType] % 100}px`,
           }}
@@ -97,9 +95,15 @@ const Map = ({ casesType, latitude, longitude, zoom, countries, country }) => {
               <img className="flag" src={country.flag} alt="flag" />
               <ul style={{ listStyle: "none" }}>
                 <li className="name">{country.name}</li>
-                <li>Cases: {numeral(country.cases).format("0,0")}</li>
-                <li>Recovered: {numeral(country.recovered).format("0,0")}</li>
-                <li>Deaths: {numeral(country.deaths).format("0,0")}</li>
+                <li className="list">
+                  Cases: {numeral(country.cases).format("0,0")}
+                </li>
+                <li className="list">
+                  Recovered: {numeral(country.recovered).format("0,0")}
+                </li>
+                <li className="list">
+                  Deaths: {numeral(country.deaths).format("0,0")}
+                </li>
               </ul>
             </div>
           </Popup>

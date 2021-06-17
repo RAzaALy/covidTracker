@@ -21,7 +21,7 @@ const config = {
   maintainAspectRatio: false,
   tooltips: {
     mode: "index",
-    intersect: false,
+    intersect: true,
     callbacks: {
       label: function (tooltipItem, data) {
         return numeral(tooltipItem.value).format("+0,0");
@@ -54,6 +54,8 @@ const config = {
 };
 const LineGraph = ({ casesType }) => {
   const [data, setData] = useState({});
+  const [data2, setData2] = useState({});
+  const [data3, setData3] = useState({});
 
   const buildChartData = (data, casesType) => {
     const chartData = [];
@@ -79,7 +81,11 @@ const LineGraph = ({ casesType }) => {
         .then((response) => response.json())
         .then((data) => {
           // console.log(data);
-          const chartData = buildChartData(data,casesType);
+          const chartData = buildChartData(data, "cases");
+          const chartData2 = buildChartData(data, "recovered");
+          const chartData3 = buildChartData(data, "deaths");
+          setData2(chartData2);
+          setData3(chartData3);
           setData(chartData);
         });
     };
@@ -87,21 +93,51 @@ const LineGraph = ({ casesType }) => {
   }, [casesType]);
   return (
     <div>
-      {data?.length > 0 && (
-        <Line
-          options={config}
-          data={{
-            datasets: [
-              {
-                label: "Cases",
-                data: data,
-                backgroundColor: "rgba(204,16,52,0.5)",
-                borderColor: "#CC1034",
-              },
-            ],
-          }}
-        />
-      )}
+      {data?.length > 0 &&
+        (casesType === "cases" ? (
+          <Line
+            options={config}
+            data={{
+              datasets: [
+                {
+                  label: "Cases",
+                  data: data,
+                  backgroundColor: "rgba(5, 155, 247, 0.5)",
+                  borderColor: "rgb(5, 155, 247)",
+                  color: "#fff",
+                },
+              ],
+            }}
+          />
+        ) : casesType === "deaths" ? (
+          <Line
+            options={config}
+            data={{
+              datasets: [
+                {
+                  label: "deaths",
+                  data: data3,
+                  backgroundColor: "rgba(204,16,52,0.5)",
+                  borderColor: "#CC1034",
+                },
+              ],
+            }}
+          />
+        ) : (
+          <Line
+            options={config}
+            data={{
+              datasets: [
+                {
+                  label: "Recovered",
+                  data: data2,
+                  backgroundColor: "rgba(53,211,156,0.5)",
+                  borderColor: "rgb(53,211,156)",
+                },
+              ],
+            }}
+          />
+        ))}
     </div>
   );
 };

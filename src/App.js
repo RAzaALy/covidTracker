@@ -21,8 +21,8 @@ const App = () => {
   const [tableData, setTableData] = useState([]);
   const [latitude, setLatitude] = useState(30.3753);
   const [longitude, setLongitude] = useState(69.3451);
-  const [mapZoom, setMapZoom] = useState(5);
-  const [casesType, setCasesType] = useState(["cases"]);
+  const [mapZoom, setMapZoom] = useState(3);
+  const [casesType, setCasesType] = useState("cases");
   const [mapCountries, setMapCountries] = useState([]);
   const [popupInfo, setPopupInfo] = useState({
     cases: 944065,
@@ -67,7 +67,7 @@ const App = () => {
     setCountryInfo(data);
     setLongitude(data.countryInfo.long);
     setLatitude(data.countryInfo.lat);
-    setMapZoom(6);
+    setMapZoom(4);
     setPopupInfo({
       cases: data.cases,
       recovered: data.recovered,
@@ -83,7 +83,7 @@ const App = () => {
       <div className="app__left">
         {/* header */}
         <div className="app__header">
-          <h1>COVID TRACKER</h1>
+          <h1>COVID-19 TRACKER</h1>
           <FormControl className="app__dropdown">
             <Select
               variant="outlined"
@@ -104,20 +104,25 @@ const App = () => {
           {/* InfoBoxes */}
 
           <InfoBox
-            onClick={(e) => setCasesType(["cases"])}
-            title="Coranavirus cases"
+            onClick={(e) => setCasesType("cases")}
+            title="Cases"
+            active={casesType === "cases"}
+            isBlue
             total={prettyStat(countryInfo.cases)}
             cases={prettyStat(countryInfo.todayCases)}
           ></InfoBox>
           <InfoBox
-            onClick={(e) => setCasesType(["recovered"])}
+            onClick={(e) => setCasesType("recovered")}
+            active={casesType === "recovered"}
             total={prettyStat(countryInfo.recovered)}
             cases={prettyStat(countryInfo.todayRecovered)}
             title="Recovered"
           ></InfoBox>
           <InfoBox
-            onClick={(e) => setCasesType(["deaths"])}
+            onClick={(e) => setCasesType("deaths")}
             title="Deaths"
+            active={casesType === "deaths"}
+            isRed
             total={prettyStat(countryInfo.deaths)}
             cases={prettyStat(countryInfo.todayDeaths)}
           ></InfoBox>
@@ -132,15 +137,20 @@ const App = () => {
         zoom={mapZoom}
         country={popupInfo}
       />
-      {/* right panel */}
+
+      <Card className="app__right">
+        <CardContent>
+          {/* graph */}
+          <h2 className="title">World wide COVID-19 New {casesType}</h2>
+          <LineGraph casesType={casesType}></LineGraph>
+        </CardContent>
+      </Card>
+      {/*  panel */}
       <Card className="app__right">
         <CardContent>
           {/* Table */}
-          <h3>Live Cases by Country</h3>
+          <h3 className="title">Live Cases by Country</h3>
           <Table countries={tableData}></Table>
-          {/* graph */}
-          <h2>Worldwide COVID-19 New {casesType}</h2>
-          <LineGraph casesType={casesType}></LineGraph>
         </CardContent>
       </Card>
     </div>
