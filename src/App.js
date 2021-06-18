@@ -79,7 +79,7 @@ const App = () => {
   // console.log(countryInfo);
   return (
     <div className="app">
-      {/* left panel */}
+      {/* to header panel */}
       <div className="app__left">
         {/* header */}
         <div className="app__header">
@@ -100,9 +100,8 @@ const App = () => {
             </Select>
           </FormControl>
         </div>
-        <div className="app__stats">
           {/* InfoBoxes */}
-
+        <div className="app__stats">
           <InfoBox
             onClick={(e) => setCasesType("cases")}
             title="Cases"
@@ -138,17 +137,16 @@ const App = () => {
         country={popupInfo}
       />
 
+       {/* graph */}
       <Card className="app__right">
         <CardContent>
-          {/* graph */}
           <h2 className="title">World wide COVID-19 New {casesType}</h2>
           <LineGraph casesType={casesType}></LineGraph>
         </CardContent>
       </Card>
-      {/*  panel */}
+      {/* Table */}
       <Card className="app__right">
         <CardContent>
-          {/* Table */}
           <h3 className="title">Live Cases by Country</h3>
           <Table countries={tableData}></Table>
         </CardContent>

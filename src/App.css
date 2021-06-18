@@ -6,12 +6,6 @@
   justify-content: space-evenly;
   overflow-x: hidden;
 }
-/* .app__left {
-  flex: 0.9;
-}
-.app__right{
- width: fit-content;
-} */
 .app__header {
   display: flex;
   align-items: center;

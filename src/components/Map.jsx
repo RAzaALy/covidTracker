@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import MapGL, { Popup } from "react-map-gl";
 import numeral from "numeral";
 import { Marker, NavigationControl } from "react-map-gl";
-
 import "./Map.css";
 // eslint-disable-next-line 
 MapGL.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
@@ -30,6 +29,7 @@ const Map = ({ casesType, latitude, longitude, zoom, countries, country }) => {
       bearing: 0,
       pitch: 0,
     });
+    //cleanup function:
     return () => {
       setViewport({});
     };
@@ -75,7 +75,6 @@ const Map = ({ casesType, latitude, longitude, zoom, countries, country }) => {
         width="100%"
         height="100%"
         mapStyle="mapbox://styles/mapbox/dark-v10"
-        // onViewportChange={setViewport}
         onViewportChange={(nextViewport) => setViewport(nextViewport)}
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
@@ -88,7 +87,7 @@ const Map = ({ casesType, latitude, longitude, zoom, countries, country }) => {
             latitude={latitude}
             longitude={longitude}
             closeButton={false}
-            closeOnClick={true}
+            closeOnClick={false}
             tipSize={12}
             onClose={() => togglePopup(false)}
             anchor="bottom"
