@@ -6,7 +6,7 @@ import "./Map.css";
 // eslint-disable-next-line 
 MapGL.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 const MAPBOX_TOKEN =
-  "pk.eyJ1IjoicmF6YWx5IiwiYSI6ImNrcHh2MGxtajA1dm4ycXQxbjgzbjdzbTEifQ.HzVi2toa42YCgvli214Tfw"; // Set your mapbox token here
+  "map box token"; // Set your mapbox token here
 const Map = ({ casesType, latitude, longitude, zoom, countries, country }) => {
   // console.log(countries);
   // console.log(latitude, longitude);
